@@ -1,8 +1,7 @@
 package val.query
 
-import grails.gorm.transactions.Transactional
-import grails.testing.mixin.integration.Integration
 import grails.gorm.transactions.Rollback
+import grails.testing.mixin.integration.Integration
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -26,22 +25,28 @@ class CatISpec extends Specification {
         breed.delete(failOnError: true, flush: true)
     }
 
-    @Transactional
-    def setupSpec() {
-        createTestData()
-    }
+//    @Transactional
+//    def setupSpec() {
+//        createTestData()
+//    }
 
-    @Transactional
-    def cleanupSpec() {
-        cleanupTestData()
-    }
+//    @Transactional
+//    def cleanupSpec() {
+//        cleanupTestData()
+//    }
 
     @Unroll
     void "Cat"() {
+        given:"breed and other cat are defined"
+        createTestData()
+
         expect:"should be validated"
         def result = input.validate()
         input.errors.allErrors.isEmpty() == expected
         result == expected
+
+        // not sure if this is the right place to put cleanup code?
+        cleanupTestData()
 
         where:
         input                                                   || expected

@@ -1,6 +1,7 @@
 Steps to reproduce:
 1) 
     ```grails run-app```
+
 2) 
     (optional) Execute Postman tests in ```/postman``` to verify the app works
 

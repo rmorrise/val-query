@@ -22,6 +22,7 @@ class CatISpec extends Specification {
     }
 
     private void cleanupTestData() {
+        otherCat.delete(failOnError: true)
         breed.delete(failOnError: true, flush: true)
     }
 

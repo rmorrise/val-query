@@ -32,6 +32,7 @@ class CatISpec extends Specification {
 
     @Transactional
     def cleanupSpec() {
+        cleanupTestData()
     }
 
     @Unroll

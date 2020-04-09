@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "6fb2eded-4d03-42b4-9e2c-9fff80403288",
+		"name": "val-query",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create breed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e3ef5fc9-8e3e-4d4a-8fe3-fd5e3d4c79e6",
+						"exec": [
+							"pm.test('Status code is 201', function() {",
+							"    pm.expect(responseCode.code).to.equal(201);",
+							"})",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"var breed = jsonData;",
+							"pm.test('id is set', function() {",
+							"    pm.expect(breed.id).to.not.be.undefined;",
+							"    pm.expect(breed.id).to.not.be.null;",
+							"    postman.setEnvironmentVariable(\"testBreedId\", breed.id);",
+							"})",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Brown Tabby\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/CatBreed",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"CatBreed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create cat",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b532d8cb-0b12-4200-a39f-1ec6a5b801a4",
+						"exec": [
+							"pm.test('Status code is 201', function() {",
+							"    pm.expect(responseCode.code).to.equal(201);",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Heather Cat\",\n\t\"owner\": \"rmorrise\",\n\t\"breed\": {\n\t\t\"id\": {{testBreedId}}\n\t}\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/Cat",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Cat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Duplicate cat - can't create!",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b532d8cb-0b12-4200-a39f-1ec6a5b801a4",
+						"exec": [
+							"pm.test('Status code is 422', function() {",
+							"    pm.expect(responseCode.code).to.equal(422);",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Heather Cat\",\n\t\"owner\": \"rmorrise\",\n\t\"breed\": {\n\t\t\"id\": {{testBreedId}}\n\t}\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/Cat",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Cat"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

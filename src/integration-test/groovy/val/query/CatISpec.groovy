@@ -26,13 +26,11 @@ class CatISpec extends Specification {
         breed.delete(failOnError: true, flush: true)
     }
 
-    @Transactional
-    def setupSpec() {
+    def setup() {
         createTestData()
     }
 
-    @Transactional
-    def cleanupSpec() {
+    def cleanup() {
         cleanupTestData()
     }
 

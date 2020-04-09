@@ -1,8 +1,7 @@
 package val.query
 
-import grails.gorm.transactions.Transactional
-import grails.testing.mixin.integration.Integration
 import grails.gorm.transactions.Rollback
+import grails.testing.mixin.integration.Integration
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -26,14 +25,16 @@ class CatISpec extends Specification {
         breed.delete(failOnError: true, flush: true)
     }
 
-    @Transactional
     def setupSpec() {
-        createTestData()
+        Cat.withTransaction {
+            createTestData()
+        }
     }
 
-    @Transactional
     def cleanupSpec() {
-        cleanupTestData()
+        Cat.withTransaction {
+            cleanupTestData()
+        }
     }
 
     @Unroll

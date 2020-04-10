@@ -36,6 +36,9 @@ class CatISpec extends Specification {
 
     @Unroll
     void "Cat"() {
+        given:
+        input.breed = breed
+
         expect:"should be validated"
         def result = input.validate()
         input.errors.allErrors.isEmpty() == expected

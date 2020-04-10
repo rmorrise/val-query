@@ -26,18 +26,19 @@ class CatISpec extends Specification {
         breed.delete(failOnError: true, flush: true)
     }
 
-    @Transactional
-    def setupSpec() {
+    def setup() {
         createTestData()
     }
 
-    @Transactional
-    def cleanupSpec() {
+    def cleanup() {
         cleanupTestData()
     }
 
     @Unroll
     void "Cat"() {
+        given:
+        input.breed = breed
+
         expect:"should be validated"
         def result = input.validate()
         input.errors.allErrors.isEmpty() == expected
